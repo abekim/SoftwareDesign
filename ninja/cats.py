@@ -11,6 +11,8 @@ If I have many many cats and want to save their information,
 # new dictionary
 cats = {}
 
+print cats
+
 '''
 Normally, you'd use OOP to define a cat schema (via Classes),
     but for the sake of simplicity, I'm going to assume each `Cat`
@@ -29,6 +31,8 @@ cat1 = {
     'age': 2
 }
 
+print cats
+
 print "cat1", cat1
 
 cat2 = {
@@ -42,17 +46,19 @@ cat3 = {
     'color': 'black',
     'age': 1
 }
-
+print cats
 '''
 Back to `cats`. I'll give a key to each of these cats, arbitrarily the order
     in which I got these cats.
 
 PS. This is also how you add more things to an existing dictionary
 '''
-cats[0] = cat1
-cats[1] = cat2
-cats[2] = cat3
-
+cats[1] = cat1
+print cats
+cats[2] = cat2
+print cats
+cats[3] = cat3
+print cats
 print "cats", cats
 
 '''
@@ -65,7 +71,7 @@ cats[hash(cat1['name'])] = cat1
 
 print "keys within cats", cats.keys()
 
-del cats[0]
+del cats[1]
 
 print "cats", cats
 print "cat1", cats[hash(cat1['name'])]
