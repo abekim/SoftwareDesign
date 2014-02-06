@@ -21,11 +21,12 @@ def is_even(n):
 
 # prints 99 bottles
 # TODO: change to 99 bugs
-def n_bottles(n, chants):
+def n_bottles(n):
     lines = ""
     for num in range(1,n+1)[::-1]:
         if not(num%10):
-            lines += chants[(n/10)-(num/10)]  + "\n"
+            chant = raw_input("STOP! Decide on who you'll call and what you'll say to them: ")
+            lines += chant + "\n"
         print """
         %i bottles of beer on the wall,
         %i bottles of beer.\n
@@ -38,6 +39,7 @@ def n_bottles(n, chants):
         %i bottles of beer on the wall!
         """ % (num, num, lines, num-1)
         num -= 1
+        raw_input("Press any key for next slide.")
     return
 
 # prints all elements in a list
@@ -102,7 +104,6 @@ def fact(n):
 
 if __name__ == "__main__":
     print "Run"
-    
 
 
 
