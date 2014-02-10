@@ -23,4 +23,10 @@ codons = [['TTT', 'TTC'],
           ['TGG'],
           ['CGT', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'],
           ['GGT', 'GGC', 'GGA', 'GGG']]
-              
+
+# fuck list of lists. Using dictionary that maps every codon to its corresponding aa
+aminos = {}
+
+for i in range(len(codons)):
+     for codon in codons[i]:
+          aminos[codon] = aa[i]

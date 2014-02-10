@@ -60,3 +60,5 @@ def average(li):
 if __name__ == '__main__':
   # block of code
   print 'Running main script'
+
+  # do_something()
