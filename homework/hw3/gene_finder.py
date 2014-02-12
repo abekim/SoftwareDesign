@@ -8,6 +8,10 @@ Created on Sun Feb  2 11:24:42 2014
 # you may find it useful to import these variables (although you are not required to use them)
 from amino_acids import *
 
+def sum_of_squares(n):
+    ''' return the sum of all squares from 1 to n '''
+    return sum([i**2 for i in range(n+1)])
+
 # unit testing
 def test(f, inputs):
     ''' Runs unit test for f with inputs '''
@@ -24,7 +28,9 @@ def split_by_length(s, n=3):
     """
     Split string s into chunks of length n
     """
-    return [s[i:i+n] for i in range(0,len(s),n) if not len(s[i:i+n]) < n]
+    res = [s[i:i+n] for i in range(0,len(s),n) if not len(s[i:i+n]) < n]
+
+    return res + [s[len(''.join(res)):]]
 
 def coding_strand_to_AA(dna):
     """ Computes the Protein encoded by a sequence of DNA.  This function
@@ -36,7 +42,7 @@ def coding_strand_to_AA(dna):
                  the input DNA fragment
     """
     if len(dna) % 3:
-        raise Exception("You done fucked up. DNA seq not divisible by 3")
+        raise Exception("DNA seq not divisible by 3")
     
     acids = ""
 
@@ -69,13 +75,12 @@ def get_reverse_complement_unit_tests(inputs):
     return test(get_reverse_complement, inputs)
 
 def has_codon(seq):
-    '''
-    Checks if a DNA sequence corresponds to an existing codon
-    '''
+    ''' Checks if a DNA sequence corresponds to an existing codon '''
     return seq in aminos.keys()
 
 def is_stop(seq):
     ''' Returns True if seq is a stop codon '''
+    if len(seq) < 3: return False
     return aminos[seq] == '|'
 
 def rest_of_ORF(dna):
@@ -86,18 +91,18 @@ def rest_of_ORF(dna):
         dna: a DNA sequence
         returns: the open reading frame represented as a string
     """
-    filtered = filter(lambda x: has_codon(x), split_by_length(dna.upper()))
+    start = 'ATG'
+    segs = split_by_length(dna.upper())
     
-    for i in range(len(filtered)):
-        if is_stop(filtered[i]): return ''.join(filtered[:i])
+    for i in range(len(segs)):
+        if is_stop(segs[i]): return ''.join(segs[:i])
 
-    return ''.join(filtered)
-
+    return ''.join(segs)
 
 def rest_of_ORF_unit_tests(inputs):
     """ Unit tests for the rest_of_ORF function """
     return test(rest_of_ORF, inputs)
-        
+
 def find_all_ORFs_oneframe(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence and returns
         them as a list.  This function should only find ORFs that are in the default
@@ -108,13 +113,21 @@ def find_all_ORFs_oneframe(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
-    
-    # YOUR IMPLEMENTATION HERE
-     
-def find_all_ORFs_oneframe_unit_tests():
-    """ Unit tests for the find_all_ORFs_oneframe function """
+    start = 'ATG'
+    res = []
+    i = 0
 
-    # YOUR IMPLEMENTATION HERE
+    while i < len(dna):
+        if dna[i:i+3] == start:
+            res.append(rest_of_ORF(dna[i:]))
+            i += len(res[-1])
+        i += 3
+    
+    return res
+     
+def find_all_ORFs_oneframe_unit_tests(inputs):
+    """ Unit tests for the find_all_ORFs_oneframe function """
+    test(find_all_ORFs_oneframe, inputs)
 
 def find_all_ORFs(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence in all 3
@@ -125,8 +138,9 @@ def find_all_ORFs(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
-    
-    # YOUR IMPLEMENTATION HERE
+    for i in range(3):
+        find_all_ORFs_oneframe()
+    return [find_all_ORFs_oneframe(dna[i:]) for i in range(3)]
 
 def find_all_ORFs_unit_tests():
     """ Unit tests for the find_all_ORFs function """
@@ -134,14 +148,13 @@ def find_all_ORFs_unit_tests():
     # YOUR IMPLEMENTATION HERE
 
 def find_all_ORFs_both_strands(dna):
-    """ Finds all non-nested open reading frames in the given DNA sequence on both
+    """ Finds all non-nested open reading frames in the given DNA sequence on bothn
         strands.
         
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
-     
-    # YOUR IMPLEMENTATION HERE
+    return find_all_ORFs(dna) + find_all_ORFs(get_reverse_complement(dna))
 
 def find_all_ORFs_both_strands_unit_tests():
     """ Unit tests for the find_all_ORFs_both_strands function """
@@ -151,8 +164,7 @@ def find_all_ORFs_both_strands_unit_tests():
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
         as a string"""
-
-    # YOUR IMPLEMENTATION HERE
+    return reduce(lambda x, y: x if len(x) > len(y) else y, find_all_ORFs_both_strands(dna))
 
 def longest_ORF_unit_tests():
     """ Unit tests for the longest_ORF function """
@@ -166,6 +178,7 @@ def longest_ORF_noncoding(dna, num_trials):
         dna: a DNA sequence
         num_trials: the number of random shuffles
         returns: the maximum length longest ORF """
+    
 
     # YOUR IMPLEMENTATION HERE
 
