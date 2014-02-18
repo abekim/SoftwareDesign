@@ -14,7 +14,9 @@ def check_fermat(a, b, c, n):
 def user_fermat():
   '''user input in following format: "a, b, c, n"'''
   inputs = raw_input("Enter a, b, c, and n (a, b, c, n): ")
+
   [a, b, c, n] = [int(i.strip()) for i in inputs.split(',')]
+  
   check_fermat(a, b, c, n)
 
 if __name__ == "__main__":

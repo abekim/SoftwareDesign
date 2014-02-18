@@ -57,5 +57,6 @@ def pull_repos(syspath="../repos/"):
     repo = Repo(os.path.join(syspath,fold))
 
     o = repo.remotes.origin
+    print o.refs
     o.pull()
 

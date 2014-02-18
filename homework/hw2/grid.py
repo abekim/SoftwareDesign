@@ -37,5 +37,3 @@ def squares(pattern, n):
   for i in range(n*len(horizontal['pat'])):
     if not i or not i % length: # when 
       print_row(pattern['h']['pat'], first=pattern['h']['first'], col=n)
-
-

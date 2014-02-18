@@ -2,11 +2,12 @@
 """
 Created on Sun Feb  2 11:24:42 2014
 
-@author: YOUR NAME HERE
+@author: Abe Kim
 """
 
 # you may find it useful to import these variables (although you are not required to use them)
 from amino_acids import *
+from random import *
 
 def sum_of_squares(n):
     ''' return the sum of all squares from 1 to n '''
@@ -30,7 +31,7 @@ def split_by_length(s, n=3):
     """
     res = [s[i:i+n] for i in range(0,len(s),n) if not len(s[i:i+n]) < n]
 
-    return res + [s[len(''.join(res)):]]
+    return res + [s[len(collapse(res)):]]
 
 def coding_strand_to_AA(dna):
     """ Computes the Protein encoded by a sequence of DNA.  This function
@@ -41,8 +42,12 @@ def coding_strand_to_AA(dna):
         returns: a string containing the sequence of amino acids encoded by the
                  the input DNA fragment
     """
+    # if len(dna) is not divisible by 3, instead of raising an exception, only return
+    # the amino acid sequence of first 
     if len(dna) % 3:
-        raise Exception("DNA seq not divisible by 3")
+        dna = dna[:-(len(dna) % 3)]
+        # raise Exception("DNA seq not divisible by 3")
+
     
     acids = ""
 
@@ -67,16 +72,18 @@ def get_reverse_complement(dna):
     """
     # dict of gene pairs
     genes = { 'A':'T', 'T':'A', 'C':'G', 'G':'C' }
+
+    if type(dna) == type([]): raise Exception("whoa")
+    print "dna", dna
     
-    return ''.join([genes[i] for i in dna.upper()[::-1]])
+    try:
+        return collapse([genes[c] for c in dna.upper()[::-1]])
+    except KeyError:
+        raise Exception("You done fucked up. No such nucleotide exists.")
     
 def get_reverse_complement_unit_tests(inputs):
     """ Unit tests for the get_complement function """
     return test(get_reverse_complement, inputs)
-
-def has_codon(seq):
-    ''' Checks if a DNA sequence corresponds to an existing codon '''
-    return seq in aminos.keys()
 
 def is_stop(seq):
     ''' Returns True if seq is a stop codon '''
@@ -95,9 +102,9 @@ def rest_of_ORF(dna):
     segs = split_by_length(dna.upper())
     
     for i in range(len(segs)):
-        if is_stop(segs[i]): return ''.join(segs[:i])
+        if is_stop(segs[i]): return collapse(segs[:i])
 
-    return ''.join(segs)
+    return collapse(segs)
 
 def rest_of_ORF_unit_tests(inputs):
     """ Unit tests for the rest_of_ORF function """
@@ -129,6 +136,20 @@ def find_all_ORFs_oneframe_unit_tests(inputs):
     """ Unit tests for the find_all_ORFs_oneframe function """
     test(find_all_ORFs_oneframe, inputs)
 
+# helpful flatten function
+def flatten(li):
+    ''' flattens a set of nested lists to a single layer list '''
+    if not True in [type(e) == type([]) for e in li]: # check for type of each element
+        return li
+    
+    flattened = []
+
+    for e in li:
+        if type(e) == type([]): flattened += flatten(e)
+        else: flattened.append(e)
+
+    return flattened
+
 def find_all_ORFs(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence in all 3
         possible frames and returns them as a list.  By non-nested we mean that if an
@@ -138,14 +159,7 @@ def find_all_ORFs(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
     """
-    for i in range(3):
-        find_all_ORFs_oneframe()
-    return [find_all_ORFs_oneframe(dna[i:]) for i in range(3)]
-
-def find_all_ORFs_unit_tests():
-    """ Unit tests for the find_all_ORFs function """
-        
-    # YOUR IMPLEMENTATION HERE
+    return flatten([find_all_ORFs_oneframe(dna[i:]) for i in range(3)])
 
 def find_all_ORFs_both_strands(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence on bothn
@@ -156,20 +170,10 @@ def find_all_ORFs_both_strands(dna):
     """
     return find_all_ORFs(dna) + find_all_ORFs(get_reverse_complement(dna))
 
-def find_all_ORFs_both_strands_unit_tests():
-    """ Unit tests for the find_all_ORFs_both_strands function """
-
-    # YOUR IMPLEMENTATION HERE
-
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
         as a string"""
     return reduce(lambda x, y: x if len(x) > len(y) else y, find_all_ORFs_both_strands(dna))
-
-def longest_ORF_unit_tests():
-    """ Unit tests for the longest_ORF function """
-
-    # YOUR IMPLEMENTATION HERE
 
 def longest_ORF_noncoding(dna, num_trials):
     """ Computes the maximum length of the longest ORF over num_trials shuffles
@@ -178,9 +182,17 @@ def longest_ORF_noncoding(dna, num_trials):
         dna: a DNA sequence
         num_trials: the number of random shuffles
         returns: the maximum length longest ORF """
-    
 
-    # YOUR IMPLEMENTATION HERE
+    def auxiliary_shuffle(s):
+        ''' shuffles a string '''
+        a = list(s) # placeholder
+        shuffle(a)
+
+        return collapse(a)
+    
+    a_shuf = auxiliary_shuffle # alias
+
+    return max(flatten([[len(o) for o in longest_ORF(a_shuf(dna))] for _ in range(num_trials)]))
 
 def gene_finder(dna, threshold):
     """ Returns the amino acid sequences coded by all genes that have an ORF
@@ -192,5 +204,27 @@ def gene_finder(dna, threshold):
         returns: a list of all amino acid sequences whose ORFs meet the minimum
                  length specified.
     """
+    sequences = []
 
-    # YOUR IMPLEMENTATION HERE
+    orfs = find_all_ORFs_both_strands(dna)
+    print orfs
+
+    for o in orfs:
+        print o
+        if len(o) >= threshold:
+            sequences.append(coding_strand_to_AA(o))
+
+    return sequences
+
+if __name__ == '__main__':
+    # print gene_finder('', 1)
+
+    from load import *
+
+    dna = load_seq("./data/X73525.fa")
+    salmonella = load_salmonella_genome()
+
+    threshold = longest_ORF_noncoding(dna, 15)
+
+    print gene_finder(salmonella, threshold)
+
