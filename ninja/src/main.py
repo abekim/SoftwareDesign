@@ -1,11 +1,11 @@
-import csv
+import csv, json
 import getpass
 import os
 from models import *
 from gitpy import *
 
-def get_from_csv (path='data', filename='students.csv'):
-  students = {}
+def get_students_from_csv (path='data', filename='students.csv'):
+  students = []
 
   with open(os.path.join(path, filename), 'rb') as csvfile:
     reader = csv.reader(csvfile)
@@ -13,53 +13,31 @@ def get_from_csv (path='data', filename='students.csv'):
     header = reader.next()
 
     for row in reader:
-      students[row[0]] = dict(zip(index, row))
+      students.append(Student(**dict(zip(header, row))))
+
+  return students, header
+
+def get_students_from_json (path='data', filename='students.json'):
+  students = {}
+
+  with open(os.path.join(path, filename), 'rb') as jfile:
+    students = json.load(jfile)
+
+  return students
+
+# aliases
+gcsv = get_students_from_csv
+gjson = get_students_from_json
+test = test_urls
+clone = clone_repos
+pull = pull_repos
 
 if __name__ == '__main__':
-  with open('mystudents.csv', 'rb') as csvfile:
-    read = csv.reader(csvfile)
+  print "Running main script"
 
-    for row in read:
-      uid = row[0]
-      name = row[1]
-      email = row[2]
+  # all students mapped by github username to student object
+  students, header = gcsv()
+  
+  print "Current attributes for student object:", header
 
-      if not(len(uid)):
-        print "User ID empty! ID:",name
-      else:
-        students[uid] = {"name": name, "email": email, "user": uid}
-
-
-  import json
-
-  with open('mystudents.json', 'wb') as f:
-    json.dump(students, f)
-
-
-  # from names import family
-
-  # matches = []
-  # nonMatches = []
-
-  # matchCount = 0
-  # nonMatchCount = 0
-
-  # for n in family:
-  #   uid = n.split()[-1]
-  #   if uid in users:
-  #     matches.append(uid)
-  #     matchCount += 1
-  #     users.remove(uid)
-  #   else:
-  #     nonMatches.append(uid)
-  #     nonMatchCount += 1
-
-  # print "Number matched: ", matchCount
-  # print "Number unmatched: ", nonMatchCount
-  # print "nonMatches: ", nonMatches
-  # print "students who haven't forked: ", users
-
-  with open('mystudents.json', 'rb') as f:
-    students = json.load(f)
-
-  clone_repos([key for key in students.keys()])
+  clone(students)

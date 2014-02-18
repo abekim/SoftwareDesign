@@ -20,12 +20,12 @@ def test_urls (users, url="https://github.com/%s/SoftwareDesign"):
   print "Loaded %i of %i successfully" % (len(users) - len(failed), len(users))
   print "Failed user ids: %s" % failed
 
-def clone_repos(users, syspath="../repos/", url="https://github.com/%s/SoftwareDesign"):
+def clone_repos(students, syspath="../repos/", url="git@github.com:%s/SoftwareDesign.git"):
   """
   Recursively removes previous copies of the repo (requires user confirmation)
   Clones the repos from the urls to a folder called repos/<username>
 
-    users : list of github ids
+    students : list of student objects
     syspath : system path to copy repos to
   """
   if (raw_input("Remove current repositories? (y/n) ")) != "y":
@@ -36,16 +36,15 @@ def clone_repos(users, syspath="../repos/", url="https://github.com/%s/SoftwareD
     shutil.rmtree(syspath) # remove existing repos
     print "Successfully removed repos from \"%s\"" % syspath
 
-  for uid in users:
-    path = syspath + uid
-    repo_url = url + ".git"
+  for s in students:
+    path = syspath + s.user
     
-    print "Cloning Repo: %s to %s" % (uid, path)
+    print "Cloning Repo: %s to %s" % (s.name, path)
 
     if not os.path.exists(path):
       os.makedirs(path)
     
-    Repo.clone_from(url % uid, path)
+    Repo.clone_from(url % s.user, path)
 
   print "Successfully cloned repos"
 
@@ -59,15 +58,4 @@ def pull_repos(syspath="../repos/"):
 
     o = repo.remotes.origin
     o.pull()
-
-if __name__ == "__main__":
-  print "Running Main Script"
-  # all users
-  # users =["acejang1994", "aloverso", "AmandaSutherland", "atproofer", "bishiguro", "cbauerswald", "cebeery", "cwallac", "daouani", "dcelik", "ddiggins", "dennis-chen", "dimitdim", "dinopants174", "doyunglee", "eengel", "emocallaghan", "flymperopoulos", "gabriellee", "gregcole", "griffint", "gubbatuba", "hpelletier", "HWilk", "hzhugit", "iangmhill", "InseongJoe", "jabb1123", "jagreene", "JenniferLVaccaro", "jenwei", "jmorris1993", "jsapers", "jwoo1123", "ksuzy31", "kyflores", "logandavis", "lvanderlyn", "mafaldaborges", "maorbernstein", "MJAFort", "mortier", "ndhanushkodi", "pencilEraser", "PMKeene", "Pratool", "ptitchener", "RRameshwar", "runnersaw", "rvanderheyde", "segerphilip", "SeongHyeok", "sgrim3", "shrinidhit", "srli", "ssingal05", "swalters4925", "themythicaldrago", "yunhsincynthiachen"]
-  # print "Current Number of repos: ", len(users)
-
-  # test_urls(users)
-  # clone_repos(users)
-
-  
 
