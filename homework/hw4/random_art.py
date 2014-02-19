@@ -7,7 +7,7 @@ Created on Tue Feb 11 11:34:57 2014
 
 # you do not have to use these particular modules, but they may help
 from random import *
-import Image
+from PIL import Image
 from math import cos, sin, pi
 
 # dictionary that maps function names to the function and the number of argument it takes in
@@ -51,12 +51,12 @@ def build_random_function(min_depth, max_depth):
 
     # base case
     if max_depth == 1:
-        return ["x"] if random() < 0.5 else ["y"] 
+        return ["x"] if random() < 0.5 else ["y"]
     else:
         f = fnames[randint(0, len(fnames)-1)] # randomly select a function
         args = [build_random_function(min_depth-1, max_depth-1) for i in range(fs[f]["arg"])] # add as many arguments as there needs to be
 
-        if len(args): return [f] + args        
+        if len(args): return [f] + args
         else: return [f]
 
 def evaluate_random_function(f, x, y):
@@ -66,11 +66,15 @@ def evaluate_random_function(f, x, y):
     fun = f[0] # get the function name
 
     try:
-        if not fs[fun]["arg"]: return 
+        if not fs[fun]["arg"]: 
+            if fun == "x": return x
+            else: return y
+        elif fs[fun]["arg"] == 1:
+            return fs[fun]["fn"](evaluate_random_function(f[1], x, y))
+        else:
+            return fs[fun]["fn"](evaluate_random_function(f[1], x, y), evaluate_random_function(f[2], x, y))
     except KeyError:
         raise Exception("No such function in list of base functions.")
-    # your code goes here
-    return
 
 def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
     """ Maps the input value that is in the interval [input_interval_start, input_interval_end]
@@ -79,16 +83,39 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     
         TODO: please fill out the rest of this docstring
     """
-    return
-    # your code goes here
+    inputs = [val, input_interval_start, input_interval_end, output_interval_start, output_interval_end]
+    v, i_s, i_e, o_s, o_e = [float(i) for i in inputs] # just in case, floatify everything!
+    
+    scale = (o_e - o_s)/(i_e - i_s)
+
+    return o_s + ((v - i_s) * scale)
+
+def remap_all(vals, i_s, i_e, o_s, o_e):
+    '''
+    run remap_interval on all vals
+    '''
+    return [remap_interval(v, i_s, i_e, o_s, o_e) for v in vals]
 
 if __name__ == '__main__':
-    # aliases 
+    # aliases
     build = build_random_function
     ev = evaluate_random_function
-    remap = remap_interval
+    remap = remap_all
 
-    # im = Image.new('wut', (350,350))
+    # image size
+    size = 350, 350
 
-    print build(2, 3)
-    
+    # new image
+    image = Image.new("output", size)
+
+    randoms = [build(5, 8) for _ in range(3)]
+
+    # iterate through all xs and ys
+    for i in range(size):
+        for j in range(size):
+            x, y = remap([i, j], 0., size, -1, 1)
+            r, g, b = remap([ev(r, x, y) for r in randoms], -1., 1, 0, 255)
+            image[x, y] = (r, g, b)
+
+    image.save()
+    image.show()
