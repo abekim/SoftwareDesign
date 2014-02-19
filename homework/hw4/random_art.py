@@ -12,13 +12,34 @@ from math import cos, sin, pi
 
 # dictionary that maps function names to the function and the number of argument it takes in
 fs = {
-  "prod": lambda x, y: x * y,
-"cos_pi": lambda x, _: cos(pi * x),
-"sin_pi": lambda x, _: sin(pi * x),
-  "cube": lambda x, _: x**3,
-     "x": lambda x, _: x,
-     "y": lambda _, y: y,
-   "avg": lambda x, y: (x + y) / 2
+    "prod": {
+        "fn": lambda a, b: a * b,
+        "arg": 2
+        },
+    "cos_pi": {
+        "fn": lambda a: cos(pi * a),
+        "arg": 1
+        },
+    "sin_pi": {
+        "fn": lambda a: sin(pi * a),
+        "arg": 1
+        },
+    "cube": {
+        "fn": lambda x: x**3,
+        "arg": 1
+        },
+    "x": {
+        "fn": lambda x: x,
+        "arg": 0
+        },
+    "y": {
+        "fn": lambda y: y,
+        "arg": 0
+        },
+    "avg": {
+        "fn": lambda a, b: (a + b) / 2,
+        "arg": 2
+    }
 }
 
 # issues with min_depth
@@ -33,9 +54,9 @@ def build_random_function(min_depth, max_depth):
         return ["x"] if random() < 0.5 else ["y"] 
     else:
         f = fnames[randint(0, len(fnames)-1)] # randomly select a function
-        args = [build_random_function(min_depth-1, max_depth-1) for _ in range(2)] # add as many arguments as there needs to be
+        args = [build_random_function(min_depth-1, max_depth-1) for i in range(fs[f]["arg"])] # add as many arguments as there needs to be
 
-        if len(args): return [f] + args
+        if len(args): return [f] + args        
         else: return [f]
 
 def evaluate_random_function(f, x, y):
@@ -45,10 +66,11 @@ def evaluate_random_function(f, x, y):
     fun = f[0] # get the function name
 
     try:
-        if fun in ['x', 'y']: return fs[fun](x, y)
-        else: return fs[fun](evaluate_random_function(f[1]), evaluate_random_function(f[2]))
+        if not fs[fun]["arg"]: return 
     except KeyError:
         raise Exception("No such function in list of base functions.")
+    # your code goes here
+    return
 
 def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
     """ Maps the input value that is in the interval [input_interval_start, input_interval_end]
@@ -68,6 +90,5 @@ if __name__ == '__main__':
 
     # im = Image.new('wut', (350,350))
 
-    # print build(2, 3)
-    print ev(build(2, 3))
+    print build(2, 3)
     
