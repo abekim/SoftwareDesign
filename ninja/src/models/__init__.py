@@ -1,4 +1,8 @@
 from students import * 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> beb843b... posted solution to hw4
 import os
 import csv, json
 
@@ -33,4 +37,10 @@ def get_students_from_json (path='data', filename='students.json'):
 gcsv = get_students_from_csv
 gjson = get_students_from_json
 
+<<<<<<< HEAD
 students, header = gcsv()
+=======
+>>>>>>> 955e449... posted solution to hw3
+=======
+students, header = gcsv()
+>>>>>>> beb843b... posted solution to hw4
