@@ -9,8 +9,9 @@ if __name__ == '__main__':
   
   print "Current attributes for student object:", header
 
-  # clone(students)
+  clone(students)
 
+<<<<<<< HEAD
   pull()
 =======
 import csv, json
@@ -33,3 +34,6 @@ if __name__ == '__main__':
 
   pull()
 >>>>>>> beb843b... posted solution to hw4
+=======
+  # pull()
+>>>>>>> 98131b0... updated readme with python tips

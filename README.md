@@ -7,18 +7,12 @@ The base repository for Olin College's Software Design Spring 2014
 -----------------
 Python is a super interesting language and there are a lot of neat tricks that you could utilize and new conventions that you should follow when coding in Python. I'll record them on here as the semester goes on / I remember them.
 
-<<<<<<< HEAD
 #### Naming
 Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`.
 
 #### Future Implementation
 
 List Comprehension, String Formatting, Dictionaries, Lambda Functions (Anonymous functions), Ternary Notation, Module Structure
-=======
-##### Naming
-Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`.
-
->>>>>>> beb843b... posted solution to hw4
 
 ### Few notes on HW4
 -----------------
