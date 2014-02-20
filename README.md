@@ -8,7 +8,24 @@ The base repository for Olin College's Software Design Spring 2014
 Python is a super interesting language and there are a lot of neat tricks that you could utilize and new conventions that you should follow when coding in Python. I'll record them on here as the semester goes on / I remember them.
 
 #### Naming
-Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`.
+Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`. As with any other conventions, it's a standard, so use it.
+
+#### Ternary Notation
+There are many ternary notations for various programming languages. Ternary notations are a simpler way of writing your `if...else` statements. Python has a very unique, pythonic ternary notation. In other languages, like JS or Java, the syntax is: 
+
+```
+boolean ? expression1 : expression2
+```
+
+where `boolean` is the conditional and `expression1` and `expression2` are what gets returned if `boolean` is `True` or `False`, respectively.
+
+In Python, it's written as:
+
+```
+expression1 if boolean else expression2
+```
+
+I find them to be extremely useful when using lambda functions, which don't support multilines. (Read about [why lambda functions don't support multilines](http://stackoverflow.com/a/1233509))
 
 #### Future Implementation
 
