@@ -32,29 +32,9 @@ fs = {
         "fn": lambda a: sin(pi * a),
         "arg": 1
         },
-<<<<<<< HEAD
-<<<<<<< HEAD
     "cube": {
         "fn": lambda x: x**3,
         "arg": 1
-=======
-    # "cube": {
-    #     "fn": lambda x: x**3,
-    #     "arg": 1
-    #     },
-    "x": {
-        "fn": lambda x: x,
-        "arg": 0
-        },
-    "y": {
-        "fn": lambda y: y,
-        "arg": 0
->>>>>>> 6ac5ec9... added images and finalized solution to hw4
-=======
-    "cube": {
-        "fn": lambda x: x**3,
-        "arg": 1
->>>>>>> 98131b0... updated readme with python tips
         },
     "avg": {
         "fn": lambda a, b: (a + b) / 2,
@@ -117,15 +97,6 @@ def remap_all(vals, i_s, i_e, o_s, o_e):
     run remap_interval on all vals
     '''
     return [remap_interval(v, i_s, i_e, o_s, o_e) for v in vals]
-<<<<<<< HEAD
-
-def to_int(vals):
-    '''
-    int-ifies all values in vals
-    '''
-    return [int(i) for i in vals]
-=======
->>>>>>> beb843b... posted solution to hw4
 
 def to_int(vals):
     '''
@@ -143,8 +114,6 @@ if __name__ == '__main__':
     size = 350, 350
 
     # new image
-<<<<<<< HEAD
-<<<<<<< HEAD
     image = Image.new("RGB", size)
 
     # copied the example from the website
@@ -153,7 +122,7 @@ if __name__ == '__main__':
     def green(x,y): return sin(pi * ((avg(avg(cos(pi * (cos(pi * cos(pi * x)) * (cos(pi * x) * avg(y, x)))), ((cos(pi * cos(pi * y)) * (cos(pi * x) * (x * y))) * sin(pi * sin(pi * avg(y, y))))), cos(pi * (avg(sin(pi * sin(pi * x)), sin(pi * sin(pi * x))) * sin(pi * sin(pi * (x * y)))))) * avg((avg(cos(pi * sin(pi * cos(pi * x))), avg((sin(pi * x) * cos(pi * y)), avg(cos(pi * x), cos(pi * x)))) * avg(avg(sin(pi * cos(pi * x)), sin(pi * sin(pi * x))), (avg(cos(pi * x), avg(y, x)) * avg(sin(pi * y), sin(pi * x))))), (cos(pi * cos(pi * (avg(y, y) * (y * x)))) * cos(pi * cos(pi * sin(pi * avg(x, x))))))) * sin(pi * avg(avg(sin(pi * cos(pi * sin(pi * cos(pi * x)))), avg(sin(pi * cos(pi * cos(pi * y))), ((sin(pi * y) * (x * y)) * cos(pi * (y * y))))), cos(pi * avg(((cos(pi * y) * (y * y)) * avg(sin(pi * y), cos(pi * y))), (((x * x) * avg(y, x)) * cos(pi * sin(pi * x)))))))))
     def red(x,y): return sin(pi * avg((((cos(pi * (sin(pi * cos(pi * y)) * avg(avg(x, x), sin(pi * y)))) * avg(sin(pi * (sin(pi * y) * (y * x))), cos(pi * cos(pi * (y * y))))) * sin(pi * (sin(pi * (sin(pi * y) * sin(pi * y))) * cos(pi * ((y * y) * sin(pi * y)))))) * sin(pi * avg(cos(pi * avg(((y * x) * (x * x)), sin(pi * (y * x)))), sin(pi * avg(avg(sin(pi * x), avg(x, x)), sin(pi * avg(x, y))))))), cos(pi * cos(pi * avg(sin(pi * sin(pi * avg((x * x), (x * x)))), sin(pi * sin(pi * sin(pi * sin(pi * y)))))))))
 
-    randoms = [build(randint(5, 10), randint(10, 15)) for _ in range(3)]
+    randoms = [build(randint(2, 5), randint(5, 10)) for _ in range(3)]
 
     # iterate through all xs and ys
     for i in range(size[0]):
@@ -163,42 +132,5 @@ if __name__ == '__main__':
             r, g, b = to_int(remap([ev(r, x, y) for r in randoms], -1., 1, 0, 255))
             image.putpixel((i, j), (r, g, b))
 
-    image.save("output5.bmp")
-=======
-    image = Image.new("output", size)
-=======
-    image = Image.new("RGB", size)
-
-<<<<<<< HEAD
-    randoms = [build(1, randint(10, 20)) for _ in range(3)]
->>>>>>> 6ac5ec9... added images and finalized solution to hw4
-
-=======
->>>>>>> 98131b0... updated readme with python tips
-    # copied the example from the website
-    def avg(x,y): return (x+y)/2
-    def blue(x, y): return avg(sin(pi * (avg(cos(pi * avg((cos(pi * (x * x)) * cos(pi * (x * y))), avg(avg((x * x), avg(y, y)), avg(cos(pi * y), cos(pi * x))))), avg(avg(avg((sin(pi * y) * (x * y)), sin(pi * (x * x))), avg(((x * x) * sin(pi * y)), (avg(x, x) * sin(pi * y)))), avg((cos(pi * sin(pi * y)) * cos(pi * avg(x, x))), sin(pi * avg(sin(pi * y), sin(pi * y)))))) * cos(pi * avg(avg(avg(sin(pi * (x * x)), avg(sin(pi * y), sin(pi * x))), cos(pi * avg(cos(pi * y), avg(y, x)))), (((avg(x, y) * cos(pi * x)) * cos(pi * avg(y, x))) * avg(cos(pi * (y * x)), ((x * x) * (y * x)))))))), avg(((((sin(pi * sin(pi * avg(x, x))) * avg(avg(sin(pi * y), sin(pi * y)), avg(avg(x, x), cos(pi * y)))) * sin(pi * sin(pi * sin(pi * (y * y))))) * avg(cos(pi * avg(avg(avg(x, y), (y * x)), cos(pi * sin(pi * x)))), (sin(pi * sin(pi * sin(pi * x))) * cos(pi * ((y * y) * cos(pi * x)))))) * avg(cos(pi * cos(pi * sin(pi * cos(pi * avg(x, y))))), (sin(pi * (cos(pi * avg(y, x)) * sin(pi * cos(pi * x)))) * ((sin(pi * cos(pi * y)) * avg(avg(x, x), cos(pi * x))) * avg((sin(pi * x) * avg(y, x)), sin(pi * sin(pi * x))))))), ((cos(pi * cos(pi * (sin(pi * (y * y)) * cos(pi * cos(pi * x))))) * avg(sin(pi * avg(cos(pi * sin(pi * y)), (cos(pi * x) * avg(x, x)))), cos(pi * cos(pi * cos(pi * avg(x, y)))))) * sin(pi * (avg((cos(pi * (y * y)) * cos(pi * sin(pi * y))), avg(((x * x) * sin(pi * x)), cos(pi * sin(pi * y)))) * avg(sin(pi * (avg(y, x) * avg(x, x))), cos(pi * avg((y * y), avg(y, y)))))))))
-    def green(x,y): return sin(pi * ((avg(avg(cos(pi * (cos(pi * cos(pi * x)) * (cos(pi * x) * avg(y, x)))), ((cos(pi * cos(pi * y)) * (cos(pi * x) * (x * y))) * sin(pi * sin(pi * avg(y, y))))), cos(pi * (avg(sin(pi * sin(pi * x)), sin(pi * sin(pi * x))) * sin(pi * sin(pi * (x * y)))))) * avg((avg(cos(pi * sin(pi * cos(pi * x))), avg((sin(pi * x) * cos(pi * y)), avg(cos(pi * x), cos(pi * x)))) * avg(avg(sin(pi * cos(pi * x)), sin(pi * sin(pi * x))), (avg(cos(pi * x), avg(y, x)) * avg(sin(pi * y), sin(pi * x))))), (cos(pi * cos(pi * (avg(y, y) * (y * x)))) * cos(pi * cos(pi * sin(pi * avg(x, x))))))) * sin(pi * avg(avg(sin(pi * cos(pi * sin(pi * cos(pi * x)))), avg(sin(pi * cos(pi * cos(pi * y))), ((sin(pi * y) * (x * y)) * cos(pi * (y * y))))), cos(pi * avg(((cos(pi * y) * (y * y)) * avg(sin(pi * y), cos(pi * y))), (((x * x) * avg(y, x)) * cos(pi * sin(pi * x)))))))))
-    def red(x,y): return sin(pi * avg((((cos(pi * (sin(pi * cos(pi * y)) * avg(avg(x, x), sin(pi * y)))) * avg(sin(pi * (sin(pi * y) * (y * x))), cos(pi * cos(pi * (y * y))))) * sin(pi * (sin(pi * (sin(pi * y) * sin(pi * y))) * cos(pi * ((y * y) * sin(pi * y)))))) * sin(pi * avg(cos(pi * avg(((y * x) * (x * x)), sin(pi * (y * x)))), sin(pi * avg(avg(sin(pi * x), avg(x, x)), sin(pi * avg(x, y))))))), cos(pi * cos(pi * avg(sin(pi * sin(pi * avg((x * x), (x * x)))), sin(pi * sin(pi * sin(pi * sin(pi * y)))))))))
-
-    randoms = [build(randint(5, 10), randint(10, 15)) for _ in range(3)]
-
-    # iterate through all xs and ys
-    for i in range(size[0]):
-        for j in range(size[1]):
-            # assuming the image is a square...
-            x, y = remap([i, j], 0., size[0], -1, 1)
-            r, g, b = to_int(remap([ev(r, x, y) for r in randoms], -1., 1, 0, 255))
-            image.putpixel((i, j), (r, g, b))
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    image.save()
->>>>>>> beb843b... posted solution to hw4
-=======
-    image.save("output.bmp")
->>>>>>> 6ac5ec9... added images and finalized solution to hw4
-=======
-    image.save("output8.bmp")
->>>>>>> 98131b0... updated readme with python tips
+    image.save("output10.bmp")
     image.show()

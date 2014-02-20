@@ -74,7 +74,6 @@ def get_reverse_complement(dna):
     genes = { 'A':'T', 'T':'A', 'C':'G', 'G':'C' }
 
     if type(dna) == type([]): raise Exception("whoa")
-    print "dna", dna
     
     try:
         return collapse([genes[c] for c in dna.upper()[::-1]])
@@ -207,14 +206,22 @@ def gene_finder(dna, threshold):
     sequences = []
 
     orfs = find_all_ORFs_both_strands(dna)
-    print orfs
 
     for o in orfs:
-        print o
         if len(o) >= threshold:
             sequences.append(coding_strand_to_AA(o))
 
     return sequences
+
+def to_dna(s):
+    ''' takes in a string of amino acids and turns them into codons '''
+    d = {}
+    for key, val in aminos.iteritems():
+        d[val] = key
+    try:
+        return collapse([d[c] for c in s])
+    except KeyError:
+        raise Exception("No such amino acid exists in database")
 
 if __name__ == '__main__':
     # print gene_finder('', 1)
@@ -224,7 +231,9 @@ if __name__ == '__main__':
     dna = load_seq("./data/X73525.fa")
     salmonella = load_salmonella_genome()
 
+    # print salmonella
+
     threshold = longest_ORF_noncoding(dna, 15)
 
-    print gene_finder(salmonella, threshold)
+    print len(gene_finder(to_dna(salmonella), threshold))
 

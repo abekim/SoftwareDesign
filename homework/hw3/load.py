@@ -53,4 +53,6 @@ def load_salmonella_genome():
     if len(gene) == 3:
          retval.append(gene)
     f.close()
-    return retval
+
+    return ''.join([r[2] for r in retval])
+    # return retval

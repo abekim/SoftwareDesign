@@ -1,10 +1,9 @@
 SoftwareDesign
 ==============
-
 The base repository for Olin College's Software Design Spring 2014
-
-### Python tips/notes
 -----------------
+### Python tips/notes (and other general coding practices)
+
 Python is a super interesting language and there are a lot of neat tricks that you could utilize and new conventions that you should follow when coding in Python. I'll record them on here as the semester goes on / I remember them.
 
 #### Naming
@@ -30,9 +29,8 @@ I find them to be extremely useful when using lambda functions, which don't supp
 #### Future Implementation
 
 List Comprehension, String Formatting, Dictionaries, Lambda Functions (Anonymous functions), Ternary Notation, Module Structure
-
-### Few notes on HW4
 -----------------
+### Few notes on HW4
 I think the more interesting problems in our lives involve having to step outside of our comfort zone, like looking at / thinking about something from a perspective we're not used to.
 
 Homework 4 for Software Design does just that. It asks us to take a function, which are normally structured:
