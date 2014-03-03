@@ -31,6 +31,7 @@ If I'm on branch `orig_branch` and I created a new branch `new_branch` while I w
 ```  
 OR  
 ```
+> git fetch origin
 > git checkout -b child_branch origin/parent_branch
 ```
 - When you first start working, always run `git pull origin <branch_name>`, where `<branch_name>` is the name of the parent branch.
