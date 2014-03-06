@@ -10,13 +10,55 @@ Distributed under the GNU General Public License at gnu.org/licenses/gpl.html.
 
 class Point(object):
     """Represents a point in 2-D space."""
-    def __init__(self, x=0, y=0):
-        self.x = float(x)
-        self.y = float(y)
-    def __str__(self):
-        return '(%g, %g)' % (self.x, self.y)
-    def get_coordinates(self):
-        return self.x, self.y
+    def __init__(me, x=0, y=0):
+        me.x = float(x)
+        me.y = float(y)
+    def __str__(me):
+        return '(%g, %g)' % (me.x, me.y)
+    def get_coordinates(me):
+        return me.x, me.y
+
+class Animal(object):
+    def __init__(self, t):
+        self.t = t   # type of animal
+    def get_type(self):
+        return self.t
+
+class Cat(Animal):
+    def __init__(self, name):
+        self.name = name
+        self.t = "cat"
+    def meow(self):
+        return "meow"
+
+cynthia = Cat("cynthia")
+print cynthia.get_type()
+print cynthia.meow()
+
+class Dog(Animal):
+    def __init__(self, name):
+        self.name = name
+        self.t = "Dog"
+    def bark(self):
+        return "woof"
+
+ponyo = Dog("ponyo")
+print ponyo.get_type()
+print ponyo.bark()
+# print ponyo.meow()
+
+from charge import Charge
+
+class Proton(Charge):
+    def __init__(self, str):
+        self.str = str
+        self.t = "+"
+
+c = Charge("+")
+print c.get_type(), c.get_str()
+
+p = Proton(100)
+print p.get_type(), p.get_str()
 
 def print_point(p):
     """Print a Point object in human-readable format."""
