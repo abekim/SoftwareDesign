@@ -61,6 +61,8 @@ Python is a super interesting language and there are a lot of neat tricks that y
 #### Naming
 Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`. As with any other conventions, it's a standard, so use it.
 
+_**Deprecated.**_ Apparently, this isn't true, and I'm embarrassed.
+
 #### Ternary Notation
 There are many ternary notations for various programming languages. Ternary notations are a simpler way of writing your `if...else` statements. Python has a very unique, pythonic ternary notation. In other languages, like JS or Java, the syntax is: 
 
@@ -76,11 +78,52 @@ In Python, it's written as:
 expression1 if boolean else expression2
 ```
 
-I find them to be extremely useful when using lambda functions, which don't support multilines. (Read about [why lambda functions don't support multilines](http://stackoverflow.com/a/1233509))
+##### A simple example
+This should print `1`:
+```
+print 1 if True else 2
+```
+Had it been written as
+```
+print 1 if False else 2
+```
+it'll print `2`.
+
+I find them to be extremely useful when using lambda functions and basic list functions (`map`, `filter`, and `reduce`), which don't support multilines. (Read about [why lambda functions don't support multilines](http://stackoverflow.com/a/1233509))
+
+#### String Formatting
+Python, along with many other great programming languages (like JS) has something called String Formatting. It lets users include variables into strings. I'm sure there are better explanations of this in the internet, but I think the examples will make it self-explanatory.
+
+You could (and should) learn more about basic string formatting operation and the various conversion types in the [Python documentation](http://docs.python.org/2/library/stdtypes.html#string-formatting).
+
+##### A Simple Example
+The following script will print `"My name is Abe."`
+```
+name = "Abe"
+
+print "My name is %s." % name 
+```
+
+String formatting is very useful for writing `__str__` (and sometimes `__repr__`) methods in classes. The purpose of the `__str__` method in a class is to make the object readable, and that might involve stringifying some of the object's attributes. (Side note: read more about the [difference between `__str__` and `__repr__` methods in a class](http://stackoverflow.com/a/2626364).)
+
+Look at this `Animal` class as an example.
+```
+class Animal(object):
+    def __init__(self, t, noise):
+        self.t = t          # type of animal
+        self.noise = noise  # noise this animal type makes
+    def __str__(self):
+        return "Animal of type %s that makes %s noise" % (self.t, self.noise)
+```
+My Dog animal object would look like
+```
+myDog = Animal("dog", "woof")
+```
+and `print myDog` would print out `"Animal of type dog that makes woof noise"`.
 
 #### Future Implementation
 
-List Comprehension, String Formatting, Dictionaries, Lambda Functions (Anonymous functions), Ternary Notation, Module Structure
+List Comprehension, Dictionaries, Lambda Functions (Anonymous functions), Module Structure
 
 ### Few notes on HW4
 --------------

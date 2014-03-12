@@ -6,6 +6,8 @@ Available from http://thinkpython.com
 Copyright 2012 Allen B. Downey.
 Distributed under the GNU General Public License at gnu.org/licenses/gpl.html.
 
+Updated and edited by: @abekim
+
 """
 
 class Point(object):
@@ -30,7 +32,7 @@ class Animal(object):
 class Cat(Animal):
     def __init__(self, name):
         self.name = name
-        self.t = "cat"
+        super(Cat, self).__init__("cat")
     def meow(self):
         return "meow"
 
@@ -41,7 +43,7 @@ print cynthia.meow()
 class Dog(Animal):
     def __init__(self, name):
         self.name = name
-        self.t = "Dog"
+        super(Dog, self).__init__("dog")
     def bark(self):
         return "woof"
 
