@@ -5,17 +5,21 @@ author: @abekim
 '''
 def multiple(n):
     ''' checks if n is a multiple of 3 and 5 '''
-    return not(n%3) or not(n%5)
+    return not n % 3 or not n % 5
 
 # sum of multiples
 def sum_mults(n):
     ''' return the sum of all multiples of 3 and 5 that are less than n '''
-    res = 0
+    # regular solution
+    # res = 0
     
-    for i in range(1, n):
-        if multiple(i): res += i
+    # for i in range(1, n):
+    #     if multiple(i): res += i
 
-    return res
+    # return res
+
+    # more elegant way
+    return sum([i for i in range(1, n) if multiple(i)])
 
 # flatten
 def flatten(li):
