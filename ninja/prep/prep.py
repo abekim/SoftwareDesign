@@ -9,7 +9,7 @@ def multiple(n):
 
 # sum of multiples
 def sum_mults(n):
-    ''' return the sum of all multiples of 3 and 5 less than n '''
+    ''' return the sum of all multiples of 3 and 5 that are less than n '''
     res = 0
     
     for i in range(1, n):
