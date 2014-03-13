@@ -1,5 +1,5 @@
 '''
-Day 13
+Day 13 - Midterm Prep
 
 author: @abekim
 '''
