@@ -59,9 +59,22 @@ If you follow the above practices, you shouldn't ever run into unexpected merge 
 Python is a super interesting language and there are a lot of neat tricks that you could utilize and new conventions that you should follow when coding in Python. I'll record them on here as the semester goes on / I remember them.
 
 #### Naming
-Python doesn't like [CamelCase](http://en.wikipedia.org/wiki/Camelcase). A lot of the functions and methods are written out as `function_that_does_something`. As with any other conventions, it's a standard, so use it.
+There are a lot of naming conventions in different programming languages, but the one rule you should follow is:
+**Always lower case your `function_names` and upper case your `ClassNames`.**
 
-_**Deprecated.**_ Apparently, this isn't true, and I'm embarrassed.
+Additionally, my personal preference for use of [`CamelCase`](http://en.wikipedia.org/wiki/CamelCase) vs [`snake_case`](http://en.wikipedia.org/wiki/Snake_case) is to use snake case for `function_and_method_names` and camel case for `ClassNames`.
+
+In my recent research, I did find [this convention](http://blog.lmorchard.com/2013/01/23/naming-conventions), which basically says:
+```
+variable_names_in_snake_case
+
+CONSTANTS_IN_ALL_CAPS
+
+functionAndMethodNamesInCamelCase
+
+StructAndClassNamesInCamelCase
+```
+I plan to try my hand on this in the near future. I'll have more to say about this specific convention in the near future! :smiley:
 
 #### Ternary Notation
 There are many ternary notations for various programming languages. Ternary notations are a simpler way of writing your `if...else` statements. Python has a very unique, pythonic ternary notation. In other languages, like JS or Java, the syntax is: 

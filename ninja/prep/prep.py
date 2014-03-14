@@ -41,6 +41,9 @@ def rotate_word(s, n):
     start = ord('a')
     
     for c in s:
+        if c == ' ':
+            rotated += ' '
+            pass
         # flag to check if c is in upper case
         upper = False
         if c.isupper():
@@ -64,7 +67,7 @@ class BankAccount:
         return 'Bank Account with balance of $%.2f' % self.balance
 
     def __str__(self):
-        return self.__repr__
+        return self.__repr__()
 
     def get_balance(self):
         ''' return the current balance '''
@@ -88,6 +91,9 @@ class Book:
         self.author = author
         self.length = length
         self.published = published
+
+    def __repr__(self):
+        return "%s" % self.title
 
     @property
     def properties(self):
@@ -113,7 +119,7 @@ class Collection:
 if __name__ == '__main__':
     books = [
         Book('Kavalier & Clay', 'Michael Chabon', 400, 2000),
-        Book('1984', 'George Orwell', 100, 1984), 
+        Book('1984', 'George Orwell', 100, 1984),
         Book('Bible', 'No one knows', 10000, -2000),
         Book('Animal Farm', 'George Orwell', 200, 2000),
         Book('Abe\'s Book', 'Abe Kim', 50, 1984)
