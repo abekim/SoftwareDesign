@@ -73,7 +73,7 @@ class DNASequence(object):
             returns: the reverse complement DNA sequence represented
                      as an object of type DNASequence
         '''
-        return ''.join([self.pairs.get_complement(n) for n in self.nucleotides])
+        return ''.join([self.pairs.get_complement(n) for n in self.nucleotides])[::-1]
 
     def get_proportion_ACGT(self):
         '''
