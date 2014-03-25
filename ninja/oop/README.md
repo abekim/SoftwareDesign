@@ -1,8 +1,7 @@
 # Object Oriented Programming
 
-## Classes
-----------
+## Inheritance
+--------------
 
-### What are they used for? Why do we use them?
+Inheritance refers to a class (or classes) whose implementations are based on a "base" class. Some major reasons for using inheritance is for code reuse and structuring the code (hierarchy).
 
-Classes are used for MANY things. PeopleClasses are excellent way of providing structure to your program. 
