@@ -1,3 +1,9 @@
+'''
+Test for complicated module
+
+author: @abekim
+'''
+
 try:
     import unittest2 as unittest2
 except ImportError: 
@@ -7,6 +13,11 @@ from complicated import *
 
 class ComplicatedTestCases(unittest.TestCase):
     def setUp(self):
+        ''' 
+            Unittest runs a setup method to initialize all test environment.
+            It runs it before every test, making it easier for all of us to not 
+            have to worry about resetting to initial test environment.
+        '''
         testable_complicated_objects = [Complicated('CO' + str(i), wut=str(Weird(i)), swag_attr="swag", id=i) for i in range(10)]
 
         # set up items to run tests on __whose expected outcomes we know__
@@ -14,6 +25,9 @@ class ComplicatedTestCases(unittest.TestCase):
         self.weirdo = Weird(id=0)
 
     def test_abe_awesomeness(self):
+        '''
+            This is a given test for all your unit tests. Just kidding.
+        '''
         print 'Testing Abe\'s awesomeness'
 
         self.assertTrue('Abe is awesome')
