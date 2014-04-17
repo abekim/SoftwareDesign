@@ -24,26 +24,32 @@ Here's an outline of what works really well when branching: I use specific terms
 
 If I'm on branch `orig_branch` and I created a new branch `new_branch` while I was on `orig_branch`, `orig_branch` is what I call the "parent branch", and `new_branch` is what I call the "child branch".
 
-- Always have a very clear understanding of what your parent branch is. One great way to enforce this is to make sure that when you're making a new branch, you either:
-```
-> git checkout parent_branch  
-> git checkout -b child_branch
-```  
-OR  
-```
-> git fetch origin
-> git checkout -b child_branch origin/parent_branch
-```
-- When you first start working, always run `git pull origin <branch_name>`, where `<branch_name>` is the name of the parent branch.
-- Only merge back to the parent branch. If on a team with multiple developers, always merge via pull requests, and that should be a PR that compares the child branch to the parent branch. Here's how I merge a child branch `new_branch` to its parents `orig_branch`:
-```
-> git checkout orig_branch  
-> git merge origin/new_branch  
-> git push origin orig_branch
-```  
-The only time I'll ever get a merge conflict is if I didn't follow the previous advice. Otherwise, `new_branch` should already have any new changes made to `orig_branch`.
+1. Always have a very clear understanding of what your parent branch is. One great way to enforce this is to make sure that when you're making a new branch, you either:
 
-- Once it's merged, _**DON'T TOUCH IT**_. If, for some God-forsaken reason, someone needs to make changes to the commit history of the parent branch (or any other changes that'll screw everyone else on children branches), do it when all children branches are merged back into the parent branch.
+    ```
+    > git checkout parent_branch  
+    > git checkout -b child_branch
+    ```  
+
+    OR  
+    
+    ```
+    > git fetch origin
+    > git checkout -b child_branch origin/parent_branch
+    ```
+
+2. When you first start working, always run `git pull origin <branch_name>`, where `<branch_name>` is the name of the parent branch.
+3. Only merge back to the parent branch. If on a team with multiple developers, always merge via pull requests, and that should be a PR that compares the child branch to the parent branch. Here's how I merge a child branch `new_branch` to its parents `orig_branch`:
+
+    ```
+    > git checkout orig_branch  
+    > git merge origin/new_branch  
+    > git push origin orig_branch
+    ```  
+
+    The only time I'll ever get a merge conflict is if I didn't follow the previous advice. Otherwise, `new_branch` should already have any new changes made to `orig_branch`.
+
+4. Once it's merged, _**DON'T TOUCH IT**_. If, for some God-forsaken reason, someone needs to make changes to the commit history of the parent branch (or any other changes that'll screw everyone else on children branches), do it when all children branches are merged back into the parent branch.
 
 If you follow the above practices, you shouldn't ever run into unexpected merge conflicts. This, of course, doesn't mean you won't run into any. If you're making changes to the same file, you _are_ going to run into merge conflicts and they should be expected.
 

@@ -1,2 +1,3 @@
 *.pyc
 ninja/repos/*
+env/*
