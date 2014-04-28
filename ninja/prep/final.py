@@ -11,10 +11,10 @@ def sum_of_primes(n):
   def is_prime(x):
     ''' returns true if x is prime '''
     # edge cases
-    if x == 1: 
-      return False
-    elif x == 2: 
+    if x == 2: 
       return True
+    elif x == 1 or not x % 2: 
+      return False
 
     # all others
     for i in range(3, x, 2):
@@ -30,9 +30,15 @@ def first_no_repeat(s):
   Returns the first character in s that's not repeated.
   If all characters are repeated, return None
   '''
+  from sets import Set
+
+  checked = Set()
+  
   for i in range(len(s)):
-    if not s[i] in s[i+1:]:
+    if not s[i] in s[i+1:] and s[i] not in checked:
       return s[i]
+    checked.add(s[i])
+  
   return None
 
 # depth of nested list
@@ -119,6 +125,11 @@ class Zoo(object):
       if self.animals[i] == animal:
         del self.animals[i]
     print '%s removed from zoo' % animal.name
+
+# aliases
+sp = sum_of_primes
+nr = first_no_repeat
+nd = nest_depth
 
 if __name__ == '__main__':
   # simulate zoo
