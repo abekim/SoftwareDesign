@@ -43,7 +43,7 @@ class Animal(object):
     # initialize a hunger factor
     self.hunger = 0.
 
-  # abstract class meant to be overridden
+  # abstract method meant to be overridden
   def make_noise(self):
     pass
 
