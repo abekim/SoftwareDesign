@@ -1,3 +1,4 @@
 *.pyc
 ninja/repos/*
 env/*
+exams/*
